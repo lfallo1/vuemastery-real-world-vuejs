@@ -21,18 +21,21 @@
     </div>
 </template>
 <script>
-    import {getEvent} from "@/services/EventService";
+
+    import {mapState, mapActions} from 'vuex'
 
     export default {
         props: ['id'],
-        data(){
-          return {
-              event: {}
-          }
+        computed: {
+            ...mapState({
+                event: 'event'
+            })
         },
-        created() {
-            getEvent(this.id).then(res => this.event = res.data)
-                .catch(err => console.log(err));
+        methods:{
+            ...mapActions(['fetchEvent'])
+        },
+        mounted(){
+            this.fetchEvent(this.id);
         }
     }
 </script>
@@ -40,17 +43,21 @@
     .location {
         margin-bottom: 0;
     }
+
     .location > .icon {
         margin-left: 10px;
     }
+
     .event-header > .title {
         margin: 0;
     }
+
     .list-group {
         margin: 0;
         padding: 0;
         list-style: none;
     }
+
     .list-group > .list-item {
         padding: 1em 0;
         border-bottom: solid 1px #e5e5e5;
