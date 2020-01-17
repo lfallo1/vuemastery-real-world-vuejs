@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {getEvent, getEvents} from "../services/EventService";
+import {getEvent, getEvents, postEvent} from "../services/EventService";
 
 Vue.use(Vuex)
 
@@ -10,15 +10,14 @@ export default new Vuex.Store({
             id: 'abc12345', name: 'TestUser'
         },
         categories: ['food', 'nature', 'drinking', 'sports', 'fight me'],
-        todos: [{id: 1, text: '....', done: true},{id: 2, text: '....', done: false},{id: 3, text: '....', done: true}],
         events: [],
-        event: {}
+        event: {},
+        eventsCount: 0
     },
     getters: {
-        catLength: state => state.categories.length,
-        doneTodos: state => state.todos.filter(t => t.done),
-        activeTodosCount: (state,getters) => state.todos.length - getters.doneTodos.length,
-        getTodosById: (state) => (id) => state.todos.find(e => e.id === id)
+        getEventById: state => id => {
+            return state.events.find(event => event.id === id)
+        }
     },
     mutations: {
         SET_EVENTS(state, events) {
@@ -26,16 +25,39 @@ export default new Vuex.Store({
         },
         SET_EVENT(state, event) {
             state.event = event;
+        },
+        SET_EVENTS_COUNT(state, eventsCount){
+            state.eventsCount = eventsCount;
+        },
+        ADD_EVENT(state, event){
+            state.events.push(event);
         }
     },
     actions: {
-        fetchEvents({commit}) {
-            getEvents().then(res => commit('SET_EVENTS', res.data))
+        fetchEvents({commit}, {perPage, page}) {
+            getEvents(perPage, page)
+                .then(res => {
+                    commit('SET_EVENTS_COUNT', res.headers['x-total-count']);
+                    commit('SET_EVENTS', res.data)
+                })
                 .catch(err => console.log(err));
         },
-        fetchEvent({commit}, id) {
-            getEvent(id).then(res => commit('SET_EVENT', res.data))
-                .catch(err => console.log(err));
+        fetchEvent({commit, getters}, id) {
+            const event = getters.getEventById(id)
+            if(event){
+                commit('SET_EVENT', event);
+            }
+            else {
+                getEvent(id).then(res => commit('SET_EVENT', res.data))
+                    .catch(err => console.log(err));
+            }
+        },
+        createEvent({commit}, event){
+            return postEvent(event)
+                .then(() => {
+                    commit('ADD_EVENT', event);
+                })
+                .catch(err => console.log(err))
         }
     },
     modules: {}
