@@ -20,7 +20,7 @@
         },
         created() {
             getEvents().then(res => this.events = res.data)
-                .error(err => console.log(err));
+                .catch(err => console.log(err));
         }
     }
 </script>

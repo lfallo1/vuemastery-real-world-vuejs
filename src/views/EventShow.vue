@@ -11,7 +11,7 @@
         <h2>Event details</h2>
         <p>{{ event.description }}</p>
         <h2>Attendees
-            <span class="badge -fill-gradient">{{ event.attendees.length }}</span>
+            <span class="badge -fill-gradient">{{ event.attendees ? event.attendees.length : 0 }}</span>
         </h2>
         <ul class="list-group">
             <li v-for="(attendee, index) in event.attendees" :key="index" class="list-item">
@@ -25,10 +25,14 @@
 
     export default {
         props: ['id'],
-
+        data(){
+          return {
+              event: {}
+          }
+        },
         created() {
             getEvent(this.id).then(res => this.event = res.data)
-                .error(err => console.log(err));
+                .catch(err => console.log(err));
         }
     }
 </script>
