@@ -7,6 +7,7 @@
 <script>
 
     import EventCard from '@/components/EventCard.vue'
+    import { getEvents } from '@/services/EventService.js'
 
     export default {
         components: {
@@ -17,11 +18,9 @@
                 events: []
             }
         },
-        mounted() {
-            this.events = [
-                {id: 1, title: 'Some get together', date: 'Tues Aug 19, 2018', time:'6:00', attendees: [{id: 'abc123', 'name': 'John Doe'}]},
-                {id: 2, title: 'Dinner', date: 'Wed Aug 20, 2018', time:'20:00', attendees: [{id: 'abc123', 'name': 'John Doe'}, {id: 'abc124', 'name': 'John Smith'}]},
-            ]
+        created() {
+            getEvents().then(res => this.events = res.data)
+                .error(err => console.log(err));
         }
     }
 </script>
