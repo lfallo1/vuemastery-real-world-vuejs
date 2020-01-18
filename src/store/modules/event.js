@@ -48,7 +48,7 @@ export const actions = {
             commit('SET_EVENT', event);
         }
         else {
-            getEvent(id)
+            return getEvent(id)
                 .then(res => commit('SET_EVENT', res.data))
                 .catch(err => logError(dispatch, 'There was an error loading this event: ' + err.message));
         }
