@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import App from '@/App.vue'
+import router from '@/router/router' //if named index.js, can just reference the folder... i.e., ./router
+import store from '@/store/store'
 
 /* Global component registration */
 import upperFirst from 'lodash/upperFirst'

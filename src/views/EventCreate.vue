@@ -55,7 +55,9 @@
             }
         },
         methods:{
-            ...mapActions(['createEvent']),
+            ...mapActions({
+                createEvent: 'event/createEvent'
+            }),
             _createEvent(){
                 this.createEvent(this.event).then(() => {
                     this.$router.push({name: 'event-show', params: {id: this.event.id}});
@@ -63,7 +65,7 @@
                 }).catch(err => console.log(err));
             },
             createBlankEvent(){
-                const user = this.$store.state.user;
+                const user = this.$store.state.user.user;
                 const id = Math.floor(Math.random() * 1000000);
                 return {
                     id: id,
