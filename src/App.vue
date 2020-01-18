@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <Navbar />
+        <NotificationContainer />
         <router-view :key="$route.fullPath" />
     </div>
 </template>
@@ -8,10 +9,12 @@
 <script>
 
     import Navbar from '@/components/Navbar';
+    import NotificationContainer from '@/components/NotificationContainer';
 
     export default {
         components: {
-            Navbar
+            Navbar,
+            NotificationContainer
         }
     }
 </script>

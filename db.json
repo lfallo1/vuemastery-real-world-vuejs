@@ -231,6 +231,36 @@
       "date": "",
       "time": "5:00",
       "attendees": []
+    },
+    {
+      "id": 35818,
+      "user": {
+        "id": "abc12345",
+        "name": "TestUser"
+      },
+      "category": "sports",
+      "organizer": "TestUser",
+      "title": "test",
+      "description": "dafda",
+      "location": "rr",
+      "date": "2020-01-23T16:44:00.000Z",
+      "time": "14:00",
+      "attendees": []
+    },
+    {
+      "id": 219755,
+      "user": {
+        "id": "abc12345",
+        "name": "TestUser"
+      },
+      "category": "drinking",
+      "organizer": "TestUser",
+      "title": "adfadf dafs",
+      "description": "dafdafdfadfadfa",
+      "location": "dafsdfdf",
+      "date": "2020-06-18T15:45:00.000Z",
+      "time": "4:00",
+      "attendees": []
     }
   ]
 }

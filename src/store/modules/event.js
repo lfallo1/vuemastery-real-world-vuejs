@@ -1,4 +1,5 @@
 import {getEvent, getEvents, postEvent} from "@/services/EventService";
+import {logError,logSuccess} from "../../services/LoggerService";
 
 //exporting individual objects example
 
@@ -32,35 +33,34 @@ export const mutations = {
 }
 
 export const actions = {
-    fetchEvents({commit}, {perPage, page}) {
+    fetchEvents({commit, dispatch}, {perPage, page}) {
         getEvents(perPage, page)
             .then(res => {
                 commit('SET_EVENTS_COUNT', res.headers['x-total-count']);
                 commit('SET_EVENTS', res.data)
             })
-            .catch(err => console.log(err));
+            .catch(err => logError(dispatch, 'There was an error loading events: ' + err.message));
     },
-    fetchEvent({commit, getters}, id) {
+    fetchEvent({commit, dispatch, getters}, id) {
         const event = getters.getEventById(id)
         if(event){
             commit('SET_EVENT', event);
         }
         else {
-            getEvent(id).then(res => commit('SET_EVENT', res.data))
-                .catch(err => console.log(err));
+            getEvent(id)
+                .then(res => commit('SET_EVENT', res.data))
+                .catch(err => logError(dispatch, 'There was an error loading this event: ' + err.message));
         }
     },
-    createEvent({commit, rootState}, event){
+    createEvent({commit, dispatch, rootState}, event){
         console.log(`Creating state for ${rootState.user.user.name}`);
 
-        //dispatch('someModule/someAction', payload, {root: true})
-
-        if(new Date().getTime() < 0){
-            return postEvent(event)
-                .then(() => {
-                    commit('ADD_EVENT', event);
-                })
-                .catch(err => console.log(err))
-        }
+        return postEvent(event)
+            .then(() => {
+                commit('ADD_EVENT', event);
+                logSuccess(dispatch, 'Event created successfully!');
+            })
+            .catch(err => logError(dispatch, 'There was an error creating this event: ' + err.message, err))
     }
 }
+

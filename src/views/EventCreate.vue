@@ -60,7 +60,7 @@
                 this.createEvent(this.event).then(() => {
                     this.$router.push({name: 'event-show', params: {id: this.event.id}});
                     this.createBlankEvent();
-                }).catch(err => console.log(err));
+                });
             },
             createBlankEvent(){
                 const user = this.$store.state.user.user;
