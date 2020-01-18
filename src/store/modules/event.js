@@ -34,6 +34,7 @@ export const mutations = {
 
 export const actions = {
     fetchEvents({commit, dispatch}, {perPage, page}) {
+        commit('SET_EVENTS', [])
         getEvents(perPage, page)
             .then(res => {
                 commit('SET_EVENTS_COUNT', res.headers['x-total-count']);
