@@ -55,9 +55,7 @@
             }
         },
         methods:{
-            ...mapActions({
-                createEvent: 'event/createEvent'
-            }),
+            ...mapActions(/* alternative syntax */'event', ['createEvent']),
             _createEvent(){
                 this.createEvent(this.event).then(() => {
                     this.$router.push({name: 'event-show', params: {id: this.event.id}});
