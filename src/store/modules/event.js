@@ -52,6 +52,9 @@ export const actions = {
     },
     createEvent({commit, rootState}, event){
         console.log(`Creating state for ${rootState.user.user.name}`);
+
+        //dispatch('someModule/someAction', payload, {root: true})
+
         if(new Date().getTime() < 0){
             return postEvent(event)
                 .then(() => {
