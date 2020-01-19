@@ -261,6 +261,21 @@
       "date": "",
       "time": "",
       "attendees": []
+    },
+    {
+      "id": 613112,
+      "user": {
+        "id": "abc12345",
+        "name": "TestUser"
+      },
+      "category": "nature",
+      "organizer": "TestUser",
+      "title": "test",
+      "description": "adsfdafsdfa",
+      "location": "tree",
+      "date": "2020-01-03T21:53:00.000Z",
+      "time": "2:00",
+      "attendees": []
     }
   ]
 }

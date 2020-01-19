@@ -1,7 +1,7 @@
 <template>
     <div>
         <label v-if="label">{{label}}</label>
-        <select :value="value" @input="evt => $emit('input', evt.target.value)" v-bind="$attrs">
+        <select :value="value" @input="evt => $emit('input', evt.target.value)" v-bind="$attrs" @blur="$emit('blur')">
             <option v-for="option in options"
                     :value="option"
                     :selected="option === value"

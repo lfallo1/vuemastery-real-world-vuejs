@@ -3,6 +3,7 @@
         <label v-if="field">{{field}}</label>
         <input v-bind="$attrs"
                :value="value"
+               @blur="() => $emit('blur')"
                @input="event => $emit('input', event.target.value)">
     </div>
 </template>
@@ -17,6 +18,9 @@
             value: {
                 type: [String, Number],
                 default: ''
+            },
+            blur: {
+                type: Function
             }
         }
     }

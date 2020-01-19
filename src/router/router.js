@@ -8,6 +8,8 @@ import NetworkIssue from '@/views/NetworkIssue.vue'
 import store from '@/store/store'
 import NProgress from 'nprogress';
 
+import FormValidationExample from '@/views/FormValidationExample.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -40,6 +42,11 @@ const routes = [
         path: '/event/create',
         name: 'event-create',
         component: EventCreate
+    },
+    {
+        path: '/example',
+        name: 'example',
+        component: FormValidationExample
     },
     {
         path: '/NotFound',
