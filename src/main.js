@@ -8,6 +8,12 @@ import '@/services/GlobalComponentRegistration'
 
 Vue.use(Vuelidate);
 
+// Vue.mixin({
+//     created(){
+//       console.log('This is global mixin - fired during the Created() life cycle hook');
+//     }
+// })
+
 Vue.config.productionTip = false
 
 new Vue({

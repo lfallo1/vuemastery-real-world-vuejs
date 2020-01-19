@@ -1,27 +1,17 @@
 <template>
     <div>
-        <label v-if="field">{{field}}</label>
+        <label v-if="label">{{label}}</label>
         <input v-bind="$attrs"
                :value="value"
                @blur="() => $emit('blur')"
-               @input="event => $emit('input', event.target.value)">
+               @input="updateValue">
     </div>
 </template>
 <script>
+
+    import {BaseInputMixin} from '@/mixins/formFieldMixin'
+
     export default{
-        inheritAttrs: false,
-        props: {
-            field: {
-                type: String,
-                default: ''
-            },
-            value: {
-                type: [String, Number],
-                default: ''
-            },
-            blur: {
-                type: Function
-            }
-        }
+        mixins: [BaseInputMixin]
     }
 </script>

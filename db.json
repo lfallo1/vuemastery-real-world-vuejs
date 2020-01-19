@@ -276,6 +276,21 @@
       "date": "2020-01-03T21:53:00.000Z",
       "time": "2:00",
       "attendees": []
+    },
+    {
+      "id": 916037,
+      "user": {
+        "id": "abc12345",
+        "name": "TestUser"
+      },
+      "category": "drinking",
+      "organizer": "TestUser",
+      "title": "test",
+      "description": "test",
+      "location": "tree",
+      "date": "2020-01-24T22:43:00.000Z",
+      "time": "20:00",
+      "attendees": []
     }
   ]
 }

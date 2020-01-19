@@ -13,36 +13,36 @@
             </template>
 
             <h3>Name & describe your event</h3>
-            <BaseInput field="Title"
+            <BaseInput label="Title"
                        type="text"
                        placeholder="Please enter a title"
                        v-model="event.title"
                        class="field"
                        :class="{error: $v.event.title.$error}"
-                        @blur="$v.event.title.$touch()"/>
+                       @blur="$v.event.title.$touch()"/>
             <template v-if="$v.event.title.$error">
                 <p class="errorMessage" v-if="!$v.event.title.required">Title is required</p>
             </template>
 
-            <BaseInput field="Description"
+            <BaseInput label="Description"
                        type="text"
                        placeholder="Add a description"
                        v-model="event.description"
                        class="field"
                        :class="{error: $v.event.description.$error}"
-                       @blur="$v.event.description.$touch()" />
+                       @blur="$v.event.description.$touch()"/>
             <template v-if="$v.event.description.$error">
                 <p class="errorMessage" v-if="!$v.event.description.required">Description is required</p>
             </template>
 
             <h3>Where is your event?</h3>
-            <BaseInput field="Location"
+            <BaseInput label="Location"
                        type="text"
                        placeholder="Add a location"
                        v-model="event.location"
                        class="field"
                        :class="{error: $v.event.location.$error}"
-                       @blur="$v.event.location.$touch()" />
+                       @blur="$v.event.location.$touch()"/>
             <template v-if="$v.event.location.$error">
                 <p class="errorMessage" v-if="!$v.event.location.required">Location is required</p>
             </template>
@@ -87,9 +87,9 @@
         components: {
             Datepicker
         },
-        data(){
+        data() {
             const times = [];
-            for(let i = 1; i <= 24; i++){
+            for (let i = 1; i <= 24; i++) {
                 times.push(i + ":00");
             }
             return {
@@ -98,23 +98,23 @@
                 event: this.createBlankEvent()
             }
         },
-        validations:{
+        validations: {
             event: {
-                category: { required },
-                title: { required },
-                description: { required },
-                location: { required },
-                date: { required },
-                time: { required },
+                category: {required},
+                title: {required},
+                description: {required},
+                location: {required},
+                date: {required},
+                time: {required},
             }
         },
-        methods:{
+        methods: {
             ...mapActions(/* alternative syntax */'event', ['createEvent']),
-            _createEvent(){
+            _createEvent() {
 
                 this.$v.$touch();
 
-                if(!this.$v.$invalid){
+                if (!this.$v.$invalid) {
                     NProgress.start();
                     this.createEvent(this.event).then(() => {
                         this.$router.push({name: 'event-show', params: {id: this.event.id}});
@@ -122,7 +122,7 @@
                     }, () => NProgress.done());
                 }
             },
-            createBlankEvent(){
+            createBlankEvent() {
                 const user = this.$store.state.user.user;
                 const id = Math.floor(Math.random() * 1000000);
                 return {
@@ -142,7 +142,7 @@
     }
 </script>
 <style scoped>
-    .field{
+    .field {
         margin-bottom: 24px;
     }
 </style>

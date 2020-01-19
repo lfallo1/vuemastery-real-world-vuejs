@@ -2,9 +2,9 @@
     <div>
         <div class="event-header">
             <span class="eyebrow">@{{ event.time }} on {{ event.date }}</span>
-            <h1 class="title">{{ event.title }}</h1>
-            <h5>Organized by {{ event.organizer }}</h5>
-            <h5>Category: {{ event.category }}</h5>
+            <h1 class="title">{{ event.title | toUpper }}</h1>
+            <h5>Organized by {{ event.organizer | toUpper }}</h5>
+            <h5>Category: {{ event.category | toUpper }}</h5>
         </div>
         <BaseIcon name="map"><h2>Location</h2></BaseIcon>
         <address>{{ event.location }}</address>
@@ -26,6 +26,11 @@
             event: {
                 type: Object,
                 required: true
+            }
+        },
+        filters:{
+            toUpper(value){
+                return value.toUpperCase();
             }
         }
     }
