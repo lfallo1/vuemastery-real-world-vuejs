@@ -43,7 +43,7 @@ export const actions = {
             })
             .catch(err => logError(dispatch, 'There was an error loading events: ' + err.message));
     },
-    fetchEvent({commit, dispatch, getters}, id) {
+    fetchEvent({commit, getters}, id) {
         const event = getters.getEventById(id)
         if(event){
             commit('SET_EVENT', event);
@@ -55,7 +55,6 @@ export const actions = {
                     commit('SET_EVENT', res.data);
                     return res.data;
                 })
-                .catch(err => logError(dispatch, 'There was an error loading this event: ' + err.message));
         }
     },
     createEvent({commit, dispatch, rootState}, event){

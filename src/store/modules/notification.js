@@ -21,7 +21,6 @@ export const actions = {
         commit('PUSH', payload);
     },
     remove({commit}, id){
-        debugger
         commit('DELETE', id);
     }
 }
