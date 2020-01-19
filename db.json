@@ -261,6 +261,36 @@
       "date": "2020-06-18T15:45:00.000Z",
       "time": "4:00",
       "attendees": []
+    },
+    {
+      "id": 738461,
+      "user": {
+        "id": "abc12345",
+        "name": "TestUser"
+      },
+      "category": "sports",
+      "organizer": "TestUser",
+      "title": "test sports event",
+      "description": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": []
+    },
+    {
+      "id": 774036,
+      "user": {
+        "id": "abc12345",
+        "name": "TestUser"
+      },
+      "category": "fight me",
+      "organizer": "TestUser",
+      "title": "adsf adfs dafs adfs ",
+      "description": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": []
     }
   ]
 }

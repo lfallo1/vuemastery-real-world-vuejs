@@ -33,7 +33,7 @@
 </script>
 <style scoped>
     li.notification.success{
-        background: #4dcd5d;
+        background: #39b982;
 
     }
 

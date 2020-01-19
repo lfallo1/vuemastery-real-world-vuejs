@@ -39,6 +39,8 @@
 <script>
     import {mapActions} from 'vuex'
     import Datepicker from 'vuejs-datepicker'
+    import NProgress from 'nprogress'
+
     export default {
         components: {
             Datepicker
@@ -57,10 +59,11 @@
         methods:{
             ...mapActions(/* alternative syntax */'event', ['createEvent']),
             _createEvent(){
+                NProgress.start();
                 this.createEvent(this.event).then(() => {
                     this.$router.push({name: 'event-show', params: {id: this.event.id}});
                     this.createBlankEvent();
-                });
+                }, () => NProgress.done());
             },
             createBlankEvent(){
                 const user = this.$store.state.user.user;

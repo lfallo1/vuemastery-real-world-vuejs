@@ -1,13 +1,13 @@
 <template>
     <div>
-        <h1>Events Listing</h1>
+        <h1>Events Listing {{currentPage}}</h1>
         <EventCard :event="evt" v-for="evt in event.events" :key="evt.id"/>
-        <template v-if="page > 1">
-            <router-link :to="{name: 'event-list', query: {page: page-1}}" rel="prev">Prev Page</router-link>
+        <template v-if="currentPage > 1">
+            <router-link :to="{name: 'event-list', query: {page: currentPage-1}}" rel="prev">Prev Page</router-link>
         </template>
         &nbsp;
-        <template v-if="page*3 < event.eventsCount">
-            <router-link :to="{name: 'event-list', query: {page: page+1}}" rel="prev">Next Page</router-link>
+        <template v-if="hasNextPage">
+            <router-link :to="{name: 'event-list', query: {page: currentPage+1}}" rel="prev">Next Page</router-link>
         </template>
     </div>
 </template>
@@ -15,22 +15,34 @@
 
     import EventCard from '@/components/EventCard.vue'
     import {mapState} from 'vuex'
+    import store from '@/store/store'
+
+    function getPageEvents(routeTo, next){
+        const currentPage = parseInt(routeTo.query.page) || 1;
+        store.dispatch('event/fetchEvents', {
+            page: currentPage
+        }).then(()=>{
+            routeTo.params.currentPage = currentPage;
+            next();
+        })
+    }
 
     export default {
+        props: ['currentPage'],
+        computed: {
+            ...mapState(['event']),
+            hasNextPage(){
+                return this.event.eventsCount > (this.currentPage * this.event.perPage);
+            }
+        },
         components: {
             EventCard
         },
-        computed: {
-            ...mapState(['event']),
-            page(){
-                return parseInt(this.$route.query.page) || 1
-            }
+        beforeRouteUpdate(routeTo, routeFrom, next){
+            getPageEvents(routeTo, next)
         },
-        created(){
-            this.$store.dispatch('event/fetchEvents', {
-                perPage: 3,
-                page: this.page
-            });
+        beforeRouteEnter(routeTo, routeFrom, next){
+            getPageEvents(routeTo, next);
         }
     }
 </script>

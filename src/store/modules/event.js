@@ -8,7 +8,8 @@ export const namespaced = true;
 export const state = {
     events: [],
     event: {},
-    eventsCount: 0
+    eventsCount: 0,
+    perPage: 3
 }
 
 export const getters = {
@@ -33,12 +34,12 @@ export const mutations = {
 }
 
 export const actions = {
-    fetchEvents({commit, dispatch}, {perPage, page}) {
-        commit('SET_EVENTS', [])
-        getEvents(perPage, page)
+    fetchEvents({commit, dispatch, state}, {page}) {
+        return getEvents(state.perPage, page)
             .then(res => {
                 commit('SET_EVENTS_COUNT', res.headers['x-total-count']);
-                commit('SET_EVENTS', res.data)
+                commit('SET_EVENTS', res.data);
+                return res.data;
             })
             .catch(err => logError(dispatch, 'There was an error loading events: ' + err.message));
     },
@@ -46,10 +47,14 @@ export const actions = {
         const event = getters.getEventById(id)
         if(event){
             commit('SET_EVENT', event);
+            return event;
         }
         else {
             return getEvent(id)
-                .then(res => commit('SET_EVENT', res.data))
+                .then(res => {
+                    commit('SET_EVENT', res.data);
+                    return res.data;
+                })
                 .catch(err => logError(dispatch, 'There was an error loading this event: ' + err.message));
         }
     },
