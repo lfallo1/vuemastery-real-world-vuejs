@@ -5,9 +5,13 @@ import store from '@/store/store'
 import 'nprogress/nprogress.css'
 import Vuelidate from 'vuelidate'
 import '@/services/GlobalComponentRegistration'
+import DateFilter from '@/filters/date'
 
 Vue.use(Vuelidate);
 
+Vue.filter('date', DateFilter); //global filter
+
+//global mixin (be careful.....)
 // Vue.mixin({
 //     created(){
 //       console.log('This is global mixin - fired during the Created() life cycle hook');
